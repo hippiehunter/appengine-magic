@@ -425,8 +425,11 @@
            parent# ~parent]
        (if (nil? parent#)
            entity#
-           (with-meta entity# {:key (get-key-object entity# parent#)
-                               :parent (get-key-object parent#)})))))
+           (if (isa? Key (class parent#))
+              (with-meta entity# {:key (get-key-object entity# parent#)
+                                  :parent parent#})
+              (with-meta entity# {:key (get-key-object entity# parent#)
+                                  :parent (get-key-object parent#)}))))))
 
 
 ;;; Note that the code relies on the API's implicit transaction tracking
